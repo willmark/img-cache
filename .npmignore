@@ -1,0 +1,10 @@
+dist/
+badtest.jpg
+node_modules/
+dstdir/
+src-pp/
+Gruntfile.js
+test.jpg
+test.js
+.gitignore
+.git

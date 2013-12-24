@@ -1,0 +1,6 @@
+dist/
+dstdir/
+crop.jpg
+node_modules/
+resize.jpg
+src-pp/

@@ -1,0 +1,42 @@
+{
+  "name": "img-cache",
+  "version": "0.0.1",
+  "description": "Cache an image from a master repository with modified dimensions and/or cropping using node canvas module (requires Cairo)",
+  "homepage": "https://github.com/willmark/img-cache",
+  "author": {
+    "name": "Mark Williams",
+    "email": "mark@togglebit.org",
+    "url": "http://togglebit.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willmark/img-cache.git"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "engine": {
+    "node": "0"
+  },
+  "dependencies": {
+    "img-canvas-helper": "~0.0.1",
+    "vargs": "~0.1.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-preprocess": "~3.0.1",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-nodeunit": "~0.2.2"
+  },
+  "keywords": [
+    "image",
+    "caching",
+    "image caching",
+    "render",
+    "canvas",
+    "node canvas",
+    "image manipulation"
+  ],
+  "readmeFilename": "README.md"
+}
