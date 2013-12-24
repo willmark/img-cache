@@ -22,7 +22,7 @@ var fs = require("fs");
  *    srcdir - String path where master repository is located 
  *    dstdir - String path where destination cache is located (ex. public) 
  *    imgfile - String path to image file (as requested in url)
- *    cd - Callback for result.  function (resulti, error)
+ *    cb - Callback for result.  function (resulti, error)
  *       result - true|false
  *       error  - Error message
  */

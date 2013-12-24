@@ -1,71 +1,34 @@
-img-canvas-helper
+img-cache
 ============
 
 > Stability - 2 Unstable
 
-Helper function to resize or crop jpeg images using node canvas module (requires Cairo)
+An image pre-processor handling caching and resizing/cropping.
+
+NOTE:Only jpg supported at this time.
+
+First, check if the image is in the cache public dir.If so,
+write it out to the response, and finish.
+
+If not cached, call the cacheImage method to determine if the
+file prefix indicates the original image should be resized/cropped
+first before copying/caching.
 
 ## API
 
 ````
-resize(img, maxdim, function(result, data))
+cacheImage(srcdir, dstdir, imgfile, callback)
 
-Resizes an image where longest dimension is within maxdim
- * imgsrc - string path to image to crop
- * width - integer length of longest width dimension for resized image 
- * height - integer length of longest height dimension for resized image 
- * callback - callback function(
- *     result - boolean true on success
- *     data - canvas object on success, Error on failure
+Caches an image currently stored in a master repository at full resolution
+If the requested image file prefix matches <width>x<height>_<crop|resize>_<original filename>,
+The <original filename> will be read from the master repository and modified to the new max dimensions
+and/or cropped before caching
+  usage:
+    srcdir   - String path where master repository is located 
+    dstdir   - String path where destination cache is located (ex. public) 
+    imgfile  - String path to image file (as requested in url)
+    callback - Callback for result.  function (resulti, error)
+       result - true|false
+       error  - Error message
 
-````
-
-````
-crop(img, maxw, maxh, function(result, data))
-
-Crops an image to bounds specified by maxw and maxh
- * imgsrc - string path to image to crop
- * width - integer width of cropped image
- * height - integer height of cropped image
- * callback - callback function(
- *     result - boolean true on success
- *     data - canvas object on success, Error on failure
-
-````
-
-````
-writeCanvas(canvas, outfile, function(result, data))
-
-Helper to write canvas to an output jpeg file
- * Useful for writing manipulated image back to a file
- * canvas - canvas to write out to disk
- * outfile - string path to output file
- * callback - function (result, data)
- *    result - boolean result true on successful write
- *    data - bytes written on success, or Error on failure
-````
-
-````
-Convert(options);
-
-Transform stream from input image to modified output image
- * usage:  var Convert = require('img-canvas-helper').Convert;
- *         var imgc = new Convert(options);
- *         imgc.on('data', function (chunk) {
- *            //handle tranformed image data chunk
- *         });
- *         imgc.on('end', function () {
- *            //close any open write streams
- *         });
- *         imgc.on('error', function (err) {
- *            //handle errors
- *         });
- * where:
- *         options = {
- *           img:  <required string path to source image>,
- *           method: <required string conversion method ('resize' | 'crop' currently supported)>,
- *           width: <required integer width of destination image>
- *           height: <required integer height of destination image>
- *         }
- */
 ````
