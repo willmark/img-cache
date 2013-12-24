@@ -10,7 +10,6 @@
  * file prefix indicates the original image should be resized/cropped
  * first before copying/caching.
  */
-//var cache = function () {
 var fs = require("fs");
 
 /**
