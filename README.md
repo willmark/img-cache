@@ -20,9 +20,10 @@ first before copying/caching.
 cacheImage(srcdir, dstdir, imgfile, callback)
 
 Caches an image currently stored in a master repository at full resolution
-If the requested image file prefix matches <width>x<height>_<crop|resize>_<original filename>,
+If the requested image file prefix matches <width>x<height>_<crop|resize|thumb>_<original filename>,
 The <original filename> will be read from the master repository and modified to the new max dimensions
-and/or cropped before caching
+and/or cropped before caching. If thumb method is specified, the image is resized to the shortest side
+matching largest of width or height.  Then, it is cropped to the requested width/height.
   usage:
     srcdir   - String path where master repository is located 
     dstdir   - String path where destination cache is located (ex. public) 
