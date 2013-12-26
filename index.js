@@ -213,7 +213,11 @@ function isValidFile(file) {
  *     dir - String path of directory to check
  */
 function isValidDir(dir) {
-    return fs.statSync(dir).isDirectory();
+    try {
+        return fs.statSync(file).isFile();
+    } catch (err) {
+        return false;
+    }
 }
 
 module.exports = {
