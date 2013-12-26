@@ -44,12 +44,10 @@ exports.resizeBadImage = function(a) {
 };
 
 exports.resizeNoFileImage = function(a) {
-    a.throws(function() {
-        cache.cacheImage(srcdir, dstdir, "noexists", function(result, err) {
-            console.log("hmmm" + err);
-        });
-    }, /ENOENT, no such file or directory/);
-    a.done();
+    cache.cacheImage(srcdir, dstdir, "noexists", function(result, err) {
+        a.ok(!result);
+        a.done();
+    });
 };
 
 exports.cropImageFile = function(a) {

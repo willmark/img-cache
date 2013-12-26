@@ -68,7 +68,7 @@ function copyImage(srcfile, dstfile, cb) {
                 cb(result, err);
             });
         } else {
-            cb(result, err);
+            cb(result, error);
         }
     });
 }
@@ -204,7 +204,11 @@ function rwEvents(ws, rs, cb) {
  *     file - String path of file to check
  */
 function isValidFile(file) {
-    return fs.statSync(file).isFile();
+    try {
+        return fs.statSync(file).isFile();
+    } catch (err) {
+        return false;
+    }
 }
 
 /**
@@ -214,7 +218,7 @@ function isValidFile(file) {
  */
 function isValidDir(dir) {
     try {
-        return fs.statSync(file).isFile();
+        return fs.statSync(dir).isDirectory();
     } catch (err) {
         return false;
     }
