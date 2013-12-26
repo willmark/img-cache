@@ -206,11 +206,7 @@ function rwEvents(ws, rs, cb) {
  *     file - String path of file to check
  */
 function isValidFile(file) {
-    try {
-        return fs.statSync(file).isFile();
-    } catch (err) {
-        return false;
-    }
+    return fs.statSync(file).isFile();
 }
 
 /**
