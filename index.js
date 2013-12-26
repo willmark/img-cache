@@ -35,11 +35,11 @@ function cacheImage(srcdir, dstdir, imgfile, cb) {
         return;
     }
     var path = require("path");
-    var parts = imgfile.match(/([0-9]+)x([0-9]+)_(crop|resize)_(.+)/m);
+    var parts = imgfile.match(/([0-9]+)x([0-9]+)_(crop|resize|thumb)_(.+)/m);
     var dstfile = path.resolve(dstdir + path.sep + imgfile);
     if (parts !== null && parts.length > 4) {
         origfile = parts[4];
-        srcfile = path.resolve(srcdir + path.sep + origfile);
+        srcfile = path.resolve(srcdir + path.sep + path.dirname(imgfile) + path.sep + origfile);
         modifyImage(srcfile, dstfile, parts[3], parts[1], parts[2], cb);
     } else {
         //Perhaps not an altered image, just try to find the original file in the source repository
@@ -131,11 +131,13 @@ function verifyJPEGFormat(srcfile, callback) {
 }
 
 /**
- * Modifies the source image to new dimensions and/or cropping
+ * Modifies the source image to new dimensions and/or cropping.  If thumb
+ * method is specified, the image is resized to the shortest side matching
+ * largest of width or height.  Then, it is cropped to the requested width/height.
  * usage:
  *    srcfile - String path to original file (currently, only jpg supported)
  *    dstfile - String path to modified destination file
- *    method  - Name of the modification function crop | resize
+ *    method  - Name of the modification function crop | resize | thumb
  *    width   - Maximum width of resulting image (for resize), or cropped width
  *    height  - Maximum height of image (for resize), or cropped height
  *    cb      - Callback for result.  function (result, error)
@@ -204,7 +206,11 @@ function rwEvents(ws, rs, cb) {
  *     file - String path of file to check
  */
 function isValidFile(file) {
-    return fs.statSync(file).isFile();
+    try {
+        return fs.statSync(file).isFile();
+    } catch (err) {
+        return false;
+    }
 }
 
 /**
