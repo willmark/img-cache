@@ -60,16 +60,10 @@ function cacheImage(srcdir, dstdir, imgfile, cb) {
  *       error  - Error message
  */
 function copyImage(srcfile, dstfile, cb) {
-    verifyImageFormat(srcfile, "jpeg", function(result, error) {
-        if (result) {
-            var rs = fs.createReadStream(srcfile);
-            var ws = fs.createWriteStream(dstfile, "wx");
-            rwEvents(ws, rs, function(result, err) {
-                cb(result, err);
-            });
-        } else {
-            cb(result, error);
-        }
+    var rs = fs.createReadStream(srcfile);
+    var ws = fs.createWriteStream(dstfile, "wx");
+    rwEvents(ws, rs, function(result, err) {
+        cb(result, err);
     });
 }
 
